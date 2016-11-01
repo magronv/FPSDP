@@ -35,9 +35,13 @@ In the Matlab command window, add to the path the `Yalmip` and `Mosek` directori
 
 Go to `code/` in order to execute the scrpits:
 
-	* do_all_benchs: will execute the scripts namebench_Optimizer2.m
-	* do_all_benchs_realvars: will execute the scripts namebench_Optimizer3.m
+- do_all_benchs: will execute the scripts namebench_Optimizer2.m
+- do_all_benchs_realvars: will execute the scripts namebench_Optimizer3.m
 
 In result of executing one of the above scripts, several files contining results will be generated.
 
 In terminal, go to `code/` and execute `./bring_together`. As result of this, one file per benchmark will be generated containing the corresponding results and a file named `all_results` containing the hole results will be generated.
+
+### Performing polynomial maximization 
+
+To use the scripts for maximizing your own polynomials, please read `code/README.md`.
