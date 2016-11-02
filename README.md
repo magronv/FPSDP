@@ -30,16 +30,17 @@ $ git clone https://github.com/magronv/FPSDP.git
 ### Benchmarks
 In the Matlab command window, add to the path the `Yalmip` and `Mosek` directories.
 
-		addpath(genpath(.../Yalmip/)); addpath(genpath(.../Mosek/));
+		addpath(genpath('path to Yalmip')); addpath(genpath('path to Mosek'));
 
-Go to `code/` in order to execute the scrpits:
+Go to `code/` in order to execute the following scripts:
 
-- `do_all_benchs`: will execute the scripts `namebench_Optimizer2.m`
-- `do_all_benchs_realvars`: will execute the scripts `namebench_Optimizer3.m`
+- `do_all_benchs`: executes all scripts `id_Optimizer2.m`, for each id in {'rigidbody1', 'rigidbody2', 'kepler0', 'kepler1', 'kepler2', 'sineTaylor', 'sineOrder3', 'sqroot', 'himmilbeau'}
+- `do_all_benchs_realvars`: executes all scripts `id_Optimizer3.m`
 
-In result of executing one of the above scripts, several files contining results will be generated.
+After executing one of the above scripts, several files containing results are generated.
 
-In terminal, go to `code/` and execute `./bring_together`. As result of this, one file per benchmark will be generated containing the corresponding results and a file named `all_results` containing the hole results will be generated.
+In your favorite shell terminal, go to `code/` and execute `./bring_together`. 
+This generates one result file for each benchmark. A file named `all_results` containing all results is also generated.
 
 ### Details to perform your own polynomial maximization 
-To use the implemented scripts in order to maximize your own polynomials, please read `code/README.md`.
+You can also use the scripts to maximize your own polynomials: please read `code/README.md`.
