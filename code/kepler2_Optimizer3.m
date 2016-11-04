@@ -7,4 +7,4 @@ b = [6.36 6.36 6.36 6.36 6.36 6.36];
 
 calculate_mvbeta(2, kepler2, var, a, b, err);
 calculate_geneig(1, kepler2, var, a, b, err);
-calculate_robustsdp(1, kepler2, var, a, b, err);
+calculate_robustsdp(2, kepler2, var, a, b, err);

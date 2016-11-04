@@ -1,13 +1,13 @@
 sdpvar x1 x2 x3 x4 x5 x6 x7 x8 x9 x10;
-rigibody1 = (( - x4 + ( - x5 + ( - x8 + ( - x9 + ( - x10))))) * x2 + ( - x9 + ( - x10))) * x1 + ((( (-2/1) * x6 + ( (-2/1) * x7 + ( (-2/1) * x8 + ( (-2/1) * x9 + ( (-2/1) * x10))))) * x3) * x2 + (( - x10) * x3));
+rigidbody1 = (( - x4 + ( - x5 + ( - x8 + ( - x9 + ( - x10))))) * x2 + ( - x9 + ( - x10))) * x1 + ((( (-2/1) * x6 + ( (-2/1) * x7 + ( (-2/1) * x8 + ( (-2/1) * x9 + ( (-2/1) * x10))))) * x3) * x2 + (( - x10) * x3));
 err = [x4 x5 x6 x7 x8 x9 x10];
 var = [x1 x2 x3];
 a = [-15 -15 -15];
 b = [15 15 15];
 iter = 4;
 
-[p_geneig, p_mvbeta, p_robustsdp] = comparaison(iter, rigibody1, var, a, b, err);
-[m_geneig, m_mvbeta, m_robustsdp] = comparaison(iter, -rigibody1, var, a, b, err);
+[p_geneig, p_mvbeta, p_robustsdp] = comparaison(iter, rigidbody1, var, a, b, err);
+[m_geneig, m_mvbeta, m_robustsdp] = comparaison(iter, -rigidbody1, var, a, b, err);
 
 geneig = zeros(1,iter);
 mvbeta = zeros(1,2*iter);

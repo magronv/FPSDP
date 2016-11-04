@@ -5,6 +5,6 @@ var = [x1 x2 x3 x4];
 a = [4 4 4 4];
 b = [6.36 6.36 6.36 6.36];
 
-calculate_mvbeta(4, kepler1, var, a, b, err);
-calculate_geneig(2, kepler1, var, a, b, err);
-calculate_robustsdp(2, kepler1, var, a, b, err);
+%calculate_mvbeta(4, kepler1, var, a, b, err);
+%calculate_geneig(2, kepler1, var, a, b, err);
+calculate_robustsdp(4, kepler1, var, a, b, err);

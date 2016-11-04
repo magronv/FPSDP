@@ -8,7 +8,7 @@ s=coefficients(poly,e);
 n = length(x); %x must have at least 1 variable.
 m = length(s); %beacause polynomials may have not envoled all the variables ei
 
-sdpvar y
+sdpvar y z
 objective = -y;
 option = sdpsettings('verbose',0,'solver','mosek');
 
@@ -18,27 +18,22 @@ for i=1:nb_iter
     disp('Problem establishment:')
     L = [];
     R = [];
-    S = [];
-    G = [];
     tic
     for j=1:m
-        [pow,coefs]=getexponentbase(s(m+1-j),x);
+        [pow,coefs] = getexponentbase(s(m+1-j),x);
         [mom,loc] = matrix_p(base, n, i, pow, coefs);
         [Lj,Rj] = fullrf(loc);
         L = [L, Lj/2];
         R = [R, Rj'];
-        rj = rank(Rj);
-        S = blkdiag(S, sdpvar(rj));
-        G = blkdiag(G, sdpvar(rj, rj, 'skew'));
     end
     R = R';
     r = length(L(1,:));
     snd = length(base);
     mat = sdpvar(r+length(base));
-    mat(1:snd, 1:snd) = -y*mom - L*S*L';
-    mat((1+snd):(r+snd), 1:snd) = R - G * L';
+    mat(1:snd, 1:snd) = y * mom - z * L * L';
+    mat((1+snd):(r+snd), 1:snd) = R;
     mat(1:snd, (1+snd):(r+snd)) = mat((1+snd):(r+snd), 1:snd)'; %by symmetry
-    mat((1+snd):(r+snd), (1+snd):(r+snd)) = S;
+    mat((1+snd):(r+snd), (1+snd):(r+snd)) = z * eye(r,r);
     constraint = mat >= 0;
     toc
     disp('Problem resolving:')

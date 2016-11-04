@@ -15,9 +15,12 @@ p_s=coefficients(poly,e);
 n = length(x); %x must have at least 1 variable.
 m = length(p_s); %beacause polynomials may have not envoled all the variables ei
 
-sdpvar y
+sdpvar y z
 objective = -y;
 option = sdpsettings('verbose',0,'solver','mosek');
+
+%m_*: variable names used for the optimization of "minus" the polynomial
+%p_*: variable names used for the optimization of "plus" the polynomial
 
 for i=1:nb_iter
     disp(i)
@@ -30,7 +33,7 @@ for i=1:nb_iter
     p_G = []; m_G = [];
     tic
     for j=1:m
-        [p_pow,p_coefs]=getexponentbase(p_s(m+1-j),x);
+        [p_pow,p_coefs] = getexponentbase(p_s(m+1-j),x);
         [p_mom,p_loc] = matrix_p(base, n, i, p_pow, p_coefs);
         [p_Lj,p_Rj] = fullrf(p_loc);
         [m_Lj,m_Rj] = fullrf(-p_loc);
@@ -38,12 +41,6 @@ for i=1:nb_iter
         m_L = [m_L, m_Lj/2];
         p_R = [p_R, p_Rj'];
         m_R = [m_R, m_Rj'];
-        p_rj = rank(p_Rj);
-        m_rj = rank(m_Rj);
-        p_S = blkdiag(p_S, sdpvar(p_rj));
-        m_S = blkdiag(m_S, sdpvar(m_rj));
-        p_G = blkdiag(p_G, sdpvar(p_rj, p_rj, 'skew'));
-        m_G = blkdiag(m_G, sdpvar(m_rj, m_rj, 'skew'));
     end
     p_R = p_R';
     m_R = m_R';
@@ -52,14 +49,14 @@ for i=1:nb_iter
     snd = length(base);
     p_mat = sdpvar(p_r+length(base));
     m_mat = sdpvar(m_r+length(base));
-    p_mat(1:snd, 1:snd) = -y * p_mom - p_L * p_S * p_L';
-    m_mat(1:snd, 1:snd) = -y * p_mom - m_L * m_S * m_L';
-    p_mat((1+snd):(p_r+snd), 1:snd) = p_R - p_G * p_L';
-    m_mat((1+snd):(m_r+snd), 1:snd) = m_R - m_G * m_L';
+    p_mat(1:snd, 1:snd) = y * p_mom - z * p_L * p_L';
+    m_mat(1:snd, 1:snd) = y * p_mom - z * m_L * m_L';
+    p_mat((1+snd):(p_r+snd), 1:snd) = p_R ;
+    m_mat((1+snd):(m_r+snd), 1:snd) = m_R ;
     p_mat(1:snd, (1+snd):(p_r+snd)) = p_mat((1+snd):(p_r+snd), 1:snd)'; %by symmetry
     m_mat(1:snd, (1+snd):(m_r+snd)) = m_mat((1+snd):(m_r+snd), 1:snd)'; %by symmetry
-    p_mat((1+snd):(p_r+snd), (1+snd):(p_r+snd)) = p_S;
-    m_mat((1+snd):(m_r+snd), (1+snd):(m_r+snd)) = m_S;
+    p_mat((1+snd):(p_r+snd), (1+snd):(p_r+snd)) = z * eye(p_r,p_r);
+    m_mat((1+snd):(m_r+snd), (1+snd):(m_r+snd)) = z * eye(p_r,p_r);
     p_constraint = p_mat >= 0;
     m_constraint = m_mat >= 0;
     t1 = toc;

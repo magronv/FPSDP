@@ -7,4 +7,4 @@ b = 2;
 
 calculate_mvbeta(12, sineOrder3, var, a, b, err);
 calculate_geneig(6, sineOrder3, var, a, b, err);
-calculate_robustsdp(9, sineOrder3, var, a, b, err);
+calculate_robustsdp(8, sineOrder3, var, a, b, err);
