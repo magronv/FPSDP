@@ -1,12 +1,14 @@
-function [ lambda ] = optipoly_opti(nb_iter, poly,x)
-%Optimisation using Lasserre's SDP relaxations.
+function [ lambda ] = optipoly_opti(nb_iter, p, x, a, b, e)
+%Maximization of polynomial p with x varies in [a,b] and e in [-1,1]^m.
+%The algorithm performs Lasserre's SDP relaxations.
 %Returns a sequence converging to the polynomial's maximum.
-%The SDP solver used here is mosek.
 
-[pow,coefs]=getexponentbase(poly,x);
+[poly, max_coefs_sdpr, ~ , ~] = scale(p, x, a, b, e);
+
+[pow,coefs]=getexponentbase(poly,[x e]);
 
 lambda = zeros(1,nb_iter);
-n = length(x);
+n = length([x e]);
 
 sdpvar y;
 objective = -y;
@@ -23,7 +25,7 @@ for i=1:nb_iter
     tic
     constraint = L>=M*y;
     optimize(constraint,objective,option);
-    lambda(i) = value(y);
+    lambda(i) = max_coefs_sdpr*value(y);
     toc
 end
 

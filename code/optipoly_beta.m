@@ -1,11 +1,14 @@
-function [ lambda ] = optipoly_beta( nb_iter , poly, x)
-%Optimisation using elementary calculation.
+function [ lambda ] = optipoly_beta(nb_iter, p, x, a, b, e)
+%Maximization of polynomial p with x varies in [a,b] and e in [-1,1]^m.
+%The algorithm performs elementary calculations using the beta function.
 %Returns a sequence converging to the polynomial's maximum.
 
-[pow,coefs]=getexponentbase(poly,x);
+[~, ~, poly, max_coefs_beta] = scale(p, x, a, b, e);
+
+[pow,coefs]=getexponentbase(poly,[x e]);
 
 lambda = zeros(1,nb_iter);
-n = length(x);
+n = length([x e]);
 
 base = basis(2*n, nb_iter);
 
@@ -34,7 +37,7 @@ for k=2:(nb_iter+1)
             min = tmp;
         end
     end
-    lambda(k-1) = min;
+    lambda(k-1) = max_coefs_beta*min;
     toc
 end
 

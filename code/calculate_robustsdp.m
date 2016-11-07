@@ -1,7 +1,7 @@
 function [ lambda ] = calculate_robustsdp(nb_iter, p, x, a, b, e)
 %Optimisation using robust SDP relaxations.
 %Return a sequence converging to the polynomial's maximum.
-%Results will be also printed in a file named p_robustsdp_results.
+%Results will be also printed in a file named "polynomial_name"_robustsdp_results.
 
 foldername = strcat(inputname(2),'_robustsdp_results');
 fid = fopen(foldername,'w');

@@ -1,7 +1,7 @@
 function [ lambda ] = calculate_mvbeta( nb_iter , p, x, a, b, e)
 %Optimisation using elementary calculation.
 %Returns a sequence converging to the polynomial's maximum.
-%Results will be also printed in a file named p_mvbeta_results.
+%Results will be also printed in a file named "polynomial_name"_mvbeta_results.
 
 foldername = strcat(inputname(2),'_mvbeta_results');
 fid = fopen(foldername,'w');

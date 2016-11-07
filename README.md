@@ -8,7 +8,7 @@ We consider the roundoff error r of a program implementing a polynomial function
 
 with `l(x, e)` the part of `r(x, e)` linear w.r.t. `e` and `h(x, e)` the part  of `r(x, e)` non-linear w.r.t. `e`.
 
-`FPSDP` computes an upper bound of `|l(x, e)|` with `x` lying in a box, and `e` being bounded by a given machine `epsilon`. 
+`FPSDP` computes an upper bound of `|l(x, e)|` with `x` lying in a box, and `e` being bounded by a given machine `epsilon`.
 
 
 For instance, one can consider f(x) = x1^3 + (3/4) x1 x2^2, with x1 in [-1, 1] and x2 in [-2, 2].
@@ -39,8 +39,5 @@ Go to `code/` in order to execute the following scripts:
 
 After executing one of the above scripts, several files containing results are generated.
 
-In your favorite shell terminal, go to `code/` and execute `./bring_together`. 
+In your favorite shell terminal, go to `code/` and execute `./bring_together`.
 This generates one result file for each benchmark. A file named `all_results` containing all results is also generated.
-
-### Details to perform your own polynomial maximization 
-You can also use the scripts to maximize your own polynomials: please read `code/README.md`.

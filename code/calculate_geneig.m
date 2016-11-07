@@ -1,7 +1,7 @@
 function [ lambda ] = calculate_geneig(nb_iter, p, x, a, b, e)
 %Optimisation using Lasserre's SDP relaxations.
 %Returns a sequence converging to the polynomial's maximum.
-%Results will be also printed in a file named p_geneig_results.
+%Results will be also printed in a file named "polynomial_name"_geneig_results.
 
 foldername = strcat(inputname(2),'_geneig_results');
 fid = fopen(foldername,'w');
